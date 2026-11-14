@@ -1,0 +1,7 @@
+.obsidian/
+.DS_Store
+Thumbs.db
+# FortiGate / device backups contain password hashes and PSKs
+*.conf
+*.bak
+*.cfg
