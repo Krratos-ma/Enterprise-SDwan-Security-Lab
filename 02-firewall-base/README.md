@@ -197,7 +197,7 @@ For each branch. A management host (*Windows*) is connected directly to `port6` 
 
 ### Test 5 - Redundant interface failover
 
-* **On:** HR1 plus FortiGate GUI
+* **On:** HR1.
 * **Command:** `ping 10.1.10.254 -t` while disabling the active member port
 * **Result:** Brief loss at most; the standby member takes over.
 
