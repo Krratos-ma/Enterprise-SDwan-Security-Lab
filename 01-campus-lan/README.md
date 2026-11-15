@@ -430,13 +430,11 @@ line vty 0 4
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - VLANs propagated by VTP
 
-- **Run on:** DSW2 and ASW1
-- **Command / action:** `show vlan brief`
-- **Expected result:** VLANs 10, 20, 30 and 40 are present on every switch although they were only created on the VTP server.
+- **Devices:** DSW2 and ASW1
+- **Command:** `show vlan brief`
+- **Result:** VLANs 10, 20, 30 and 40 are present on every switch although they were only created on the VTP server.
 
 ![VLANs propagated by VTP-DSW2](img/test-vlan-brief-vtp-DSW2.png)
 
@@ -444,33 +442,33 @@ Each test lists where to run it, the command and the expected result, followed b
 
 ### Test 2 - VTP status
 
-- **Run on:** DSW2
-- **Command / action:** `show vtp status`
-- **Expected result:** Domain name, mode and revision match across the switches.
+- **Device:** DSW2
+- **Command:** `show vtp status`
+- **Result:** Domain name, mode and revision match across the switches.
 
 ![VTP status](img/test-vtp-status.png)
 
 ### Test 3 - Trunks
 
-- **Run on:** DSW1
-- **Command / action:** `show interfaces trunk`
-- **Expected result:** Trunk ports up, native VLAN 99, allowed VLANs as configured.
+- **Device:** DSW1
+- **Command:** `show interfaces trunk`
+- **Result:** Trunk ports up, native VLAN 99, allowed VLANs as configured.
 
 ![Trunks](img/test-trunks.png)
 
 ### Test 4 - EtherChannel (LACP)
 
-- **Run on:** DSW1
-- **Command / action:** `show etherchannel summary`
-- **Expected result:** Port-channels in use `(SU)` with member ports bundled `(P)`.
+- **Device:** DSW1
+- **Command:** `show etherchannel summary`
+- **Result:** Port-channels in use `(SU)` with member ports bundled `(P)`.
 
 ![EtherChannel (LACP)](img/test-etherchannel-summary.png)
 
 ### Test 5 - Spanning-tree roots
 
-- **Run on:** DSW1 and DSW2
-- **Command / action:** `show spanning-tree root`
-- **Expected result:** DSW1 is root for VLANs 10 and 20, DSW2 for VLANs 30 and 40.
+- **Deviecs:** DSW1 and DSW2
+- **Command:** `show spanning-tree root`
+- **Result:** DSW1 is root for VLANs 10 and 20, DSW2 for VLANs 30 and 40.
 
 ![Spanning-tree roots-DSW1](img/test-stp-roots-DSW1.png)
 
@@ -478,9 +476,9 @@ Each test lists where to run it, the command and the expected result, followed b
 
 ### Test 6 - SSH management
 
-- **Run on:** Management host
-- **Command / action:** `ssh abdelilah@<DSW1-mgmt-IP>` and `ssh -c aes256-cbc abdelilah@<DMZ-switch-IP>`
-- **Expected result:** SSH login succeeds; telnet is not accepted.
+- **Device:** Management host
+- **Commands:** `ssh abdelilah@<DSW1-mgmt-IP>` and `ssh -c aes256-cbc abdelilah@<DMZ-switch-IP>`
+- **Result:** SSH login succeeds with both.
 
 ![SSH management DSW1](img/test-ssh-switches-DSW1.png)
 
