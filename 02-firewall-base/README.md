@@ -163,53 +163,51 @@ For each branch. A management host (*Windows*) is connected directly to `port6` 
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - DHCP on a VLAN (VPC)
 
-* **Run on:** HR2 (VPCS)
-* **Command / action:** `ip dhcp` then `show ip`
-* **Expected result:** Address in 10.1.10.0/24, gateway 10.1.10.254, DNS handed out.
+* **On:** HR2 (VPCS)
+* **Command:** `ip dhcp` then `show ip`
+* **Result:** Address in 10.1.10.0/24, gateway 10.1.10.254, DNS handed out.
 
 ![DHCP on a VLAN (VPC)](img/test-dhcp-vpc-hr2.png)
 
 ### Test 2 - DHCP on a VLAN (Windows)
 
-* **Run on:** Sales1
-* **Command / action:** `ipconfig /all`
-* **Expected result:** Address in 10.1.20.0/24 with the DHCP-provided gateway and DNS.
+* **On:** Sales1
+* **Command:** `ipconfig /all`
+* **Result:** Address in 10.1.20.0/24 with the DHCP-provided gateway and DNS.
 
 ![DHCP on a VLAN (Windows)](img/test-dhcp-windows-sales1.png)
 
 ### Test 3 - DHCP at Rabat
 
-* **Run on:** Rabat end host
-* **Command / action:** `ipconfig /all`
-* **Expected result:** Address in 10.2.0.0/24, gateway 10.2.0.254.
+* **On:** Rabat end host
+* **Command:** `ipconfig /all`
+* **Result:** Address in 10.2.0.0/24, gateway 10.2.0.254.
 
 ![DHCP at Rabat](img/test-dhcp-rabat.png)
 
 ### Test 4 - DHCP at Tangier
 
-* **Run on:** Tangier end host
-* **Command / action:** `ipconfig /all`
-* **Expected result:** Address in 10.3.0.0/24, gateway 10.3.0.254.
+* **On:** Tangier end host
+* **Command:** `ipconfig /all`
+* **Result:** Address in 10.3.0.0/24, gateway 10.3.0.254.
 
 ![DHCP at Tangier](img/test-dhcp-tangier.png)
 
 ### Test 5 - Redundant interface failover
 
-* **Run on:** HR1 plus FortiGate GUI
-* **Command / action:** `ping 10.1.10.254 -t` while disabling the active member port
-* **Expected result:** Brief loss at most; the standby member takes over (Network > Interfaces).
+* **On:** HR1 plus FortiGate GUI
+* **Command:** `ping 10.1.10.254 -t` while disabling the active member port
+* **Result:** Brief loss at most; the standby member takes over.
 
 ![Redundant interface failover](img/test-redundant-interface-failover.png)
 
 ### Test 6 - Management GUI access
 
-* **Run on:** Management host
-* **Command / action:** Browse to `https://192.168.10.251`
-* **Expected result:** FortiGate login page reachable from the management network.
+* **On:** Management host
+* **Action:** Browse to `https://192.168.10.251`
+* **Result:** FortiGate login page reachable from the management network.
 
 ![Management GUI access](img/test-fw-gui-mgmt.png)
 
