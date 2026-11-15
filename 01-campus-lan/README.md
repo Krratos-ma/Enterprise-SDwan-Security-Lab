@@ -207,7 +207,13 @@ spanning-tree vlan 30 root secondary
 spanning-tree vlan 40 root secondary
 ```
 
-![DSW1 (core) configuration](img/config-dsw1.png)
+![DSW1 (core) configuration1](img/config-dsw1-1.png)
+
+![DSW1 (core) configuration2](img/config-dsw1-2.png)
+
+![DSW1 (core) configuration3](img/config-dsw1-3.png)
+
+![DSW1 (core) configuration4](img/config-dsw1-4.png)
 
 
 On **DSW2**:
@@ -268,7 +274,13 @@ spanning-tree vlan 30 root primary
 spanning-tree vlan 40 root primary
 ```
 
-![DSW2 (core) configuration](img/config-dsw2.png)
+![DSW2 (core) configuration1](img/config-dsw2-1.png)
+
+![DSW2 (core) configuration2](img/config-dsw2-2.png)
+
+![DSW2 (core) configuration3](img/config-dsw2-3.png)
+
+![DSW2 (core) configuration4](img/config-dsw2-4.png)
 
 
 ### Concept
@@ -426,7 +438,9 @@ Each test lists where to run it, the command and the expected result, followed b
 - **Command / action:** `show vlan brief`
 - **Expected result:** VLANs 10, 20, 30 and 40 are present on every switch although they were only created on the VTP server.
 
-![VLANs propagated by VTP](img/test-vlan-brief-vtp.png)
+![VLANs propagated by VTP-DSW2](img/test-vlan-brief-vtp-DSW2.png)
+
+![VLANs propagated by VTP-ASW1](img/test-vlan-brief-vtp-ASW1.png)
 
 ### Test 2 - VTP status
 
@@ -458,7 +472,9 @@ Each test lists where to run it, the command and the expected result, followed b
 - **Command / action:** `show spanning-tree root`
 - **Expected result:** DSW1 is root for VLANs 10 and 20, DSW2 for VLANs 30 and 40.
 
-![Spanning-tree roots](img/test-stp-roots.png)
+![Spanning-tree roots-DSW1](img/test-stp-roots-DSW1.png)
+
+![Spanning-tree roots-DSW2](img/test-stp-roots-DSW2.png)
 
 ### Test 6 - SSH management
 
@@ -466,4 +482,6 @@ Each test lists where to run it, the command and the expected result, followed b
 - **Command / action:** `ssh abdelilah@<DSW1-mgmt-IP>` and `ssh -c aes256-cbc abdelilah@<DMZ-switch-IP>`
 - **Expected result:** SSH login succeeds; telnet is not accepted.
 
-![SSH management](img/test-ssh-switches.png)
+![SSH management DSW1](img/test-ssh-switches-DSW1.png)
+
+![SSH management DMZ-switch](img/test-ssh-switches-DMZ-switch.png)
