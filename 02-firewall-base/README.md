@@ -10,13 +10,13 @@ Base configuration of the FortiGate firewalls before HA: DNS and NTP, the redund
 
 #### DNS config (hub primary FW + spokes FWs)
 
-From the lefthand panel, Go to **Network** > **DNS**, and set the primary \& secondary DNS to `8.8.8.8`, `1.1.1.1` (*it was by default set to Fortiguard servers IPs, but connectivity to those servers is impossible with the free trial license*).
+From the lefthand panel, Go to **Network** > **DNS**, and set the primary & secondary DNS to `8.8.8.8`, `1.1.1.1` (*it was by default set to Fortiguard servers IPs, but connectivity to those servers is impossible with the free trial license*).
 
-!\[Casa FortiGate DNS settings](img/config-fw-dns-casa.png)
+![Casa FortiGate DNS settings](img/config-fw-dns-casa.png)
 
-!\[Rabat FortiGate DNS settings](img/config-fw-dns-rabat.png)
+![Rabat FortiGate DNS settings](img/config-fw-dns-rabat.png)
 
-!\[Tangier FortiGate DNS settings](img/config-fw-dns-tangier.png)
+![Tangier FortiGate DNS settings](img/config-fw-dns-tangier.png)
 
 
 
@@ -26,11 +26,11 @@ The FW's time zone is set to **Casablanca** for the hub's primary and all branch
 
 <!-- TODO(verify): the hub NTP server listens on port6 (MGMT) but the DC is pointed at the VLAN40 interface IP 10.1.40.254; check the NTP server interface list on the hub FW -->
 
-!\[Casa FortiGate NTP settings and time zone](img/config-fw-ntp-casa.png)
+![Casa FortiGate NTP settings and time zone](img/config-fw-ntp-casa.png)
 
-!\[Rabat FortiGate NTP settings and time zone](img/config-fw-ntp-rabat.png)
+![Rabat FortiGate NTP settings and time zone](img/config-fw-ntp-rabat.png)
 
-!\[Tangier FortiGate NTP settings and time zone](img/config-fw-ntp-tangier.png)
+![Tangier FortiGate NTP settings and time zone](img/config-fw-ntp-tangier.png)
 
 ## Firewall LAN ports, VLANs and DHCP
 
@@ -49,20 +49,20 @@ The whole config is done on the **Primary Firewall**(*active*). the Secondary FW
 * No administrative access is configured on the redundant interface.
 * The redundant interface is placed in a LAN zone.
 
-!\[Redundant interface towards DSW1/DSW2](img/config-fw-hub-LAN.png)
+![Redundant interface towards DSW1/DSW2](img/config-fw-hub-LAN.png)
 
 
 
-##### VLANs \& DHCP config
+##### VLANs & DHCP config
 
-* 4 VLAN interfaces are configured with the IP addresses `10.1.10.254` \& `10.1.20.254` \& `10.1.30.254` \& `10.1.40.254` for VLANs 10, 20, 30, 40.
+* 4 VLAN interfaces are configured with the IP addresses `10.1.10.254` & `10.1.20.254` & `10.1.30.254` & `10.1.40.254` for VLANs 10, 20, 30, 40.
 * The VLAN interfaces are assigned to the LAN redundant interface created earlier.
 * The `ping` is the only  administrative access that's allowed  on the VLAN interfaces
 * DHCP is configured with the range `10.1.x.1 - 10.1.x.100` on each VLAN interface (*e.g. `10.1.10.1 - 10.1.10.100` on VLAN10*). Gateway is **Same as Interface IP**. DNS is specified as the DC's IP; `10.1.40.101` from VLAN 40 (CONTROL) (*See >* [*Active Directory config*](../06-active-directory/README.md#dc-name--ip--dns--gw--policy--ie-security)).
 
-!\[VLAN interfaces on the redundant interface](img/config-fw-hub-LAN.png)
+![VLAN interfaces on the redundant interface](img/config-fw-hub-LAN.png)
 
-!\[DHCP server settings of a VLAN interface](img/config-fw-hub-LAN.png)
+![DHCP server settings of a VLAN interface](img/config-fw-hub-LAN.png)
 
 
 
@@ -73,13 +73,13 @@ The whole config is done on the **Primary Firewall**(*active*). the Secondary FW
 * The `ping` is the only  administrative access that's allowed  on the LAN interface.
 * The LAN interface is configured with the last IP in each branch network, that is; `10.x.0.254`
 
-\---
+---
 
 *To set up endhosts to pick DHCP settings from DHCP server, see >* [*Get DHCP settings - Endhosts*](#end-host-dhcp-settings)
 
-!\[Rabat Branch firewall LAN interface and DHCP server](img/config-fw-branch1-LAN.png)
+![Rabat Branch firewall LAN interface and DHCP server](img/config-fw-branch1-LAN.png)
 
-!\[Tangier Branch firewall LAN interface and DHCP server](img/config-fw-branch2-LAN.png)
+![Tangier Branch firewall LAN interface and DHCP server](img/config-fw-branch2-LAN.png)
 
 ## End-host DHCP settings
 
@@ -108,9 +108,9 @@ The previous command on VPCs was just to test if DHCP is working properly. To co
 * Now, **turn on** your VPC and join its CLI, you'll notice that a **DORA process** will run automatically.
 * If it doesn't pick up DHCP setting automatically, manually run `ip dhcp` to get it.
 
-\---
+---
 
-*To set up DHCP servers, see >* [*FW's LAN ports config (VLANs \& DHCP)*](#firewall-lan-ports-vlans-and-dhcp)
+*To set up DHCP servers, see >* [*FW's LAN ports config (VLANs & DHCP)*](#firewall-lan-ports-vlans-and-dhcp)
 
 ## Firewall management access
 
@@ -129,11 +129,11 @@ config system interface
 end
 ```
 
-!\[Hub firewall management port (port6)](img/config-fw-mgmt-port-hub.png)
+![Hub firewall management port (port6)](img/config-fw-mgmt-port-hub.png)
 
-> \\\*\\\*Note:\\\*\\\* `192.168.10.254` is the temporary management address used before HA is configured. Once the cluster is formed each unit gets its own management IP (`192.168.10.251` on the primary, `192.168.10.252` on the secondary), see \\\[FW's HA \\\& SD-WAN \\\& zones \\\& default route config](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route).
+> **Note:** `192.168.10.254` is the temporary management address used before HA is configured. Once the cluster is formed each unit gets its own management IP (`192.168.10.251` on the primary, `192.168.10.252` on the secondary), see [FW's HA & SD-WAN & zones & default route config](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route).
 
-* You don't have to set up a management port for the secondary FW's GUI access. After you configure HA on both firewalls, you'll be able to set up a separate management IP for each member of the HA cluster (*see >* [*FW's HA \& SD-WAN \& zones \& default route config*](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route)).
+* You don't have to set up a management port for the secondary FW's GUI access. After you configure HA on both firewalls, you'll be able to set up a separate management IP for each member of the HA cluster (*see >* [*FW's HA & SD-WAN & zones & default route config*](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route)).
 * In fact, the secondary FW doesn't have `port6` connected to the **MGMT switch**. But once you configure the mgmt-ips on `port6` each FW, you'll be able to access the secondary FW from the primary FW through the heartbeat interafaces.
 
 ### Branch Firewalls config
@@ -151,9 +151,9 @@ config system interface
 end
 ```
 
-!\[Rabat Branch firewall management port](img/config-fw-mgmt-port-branch1.png)
+![Rabat Branch firewall management port](img/config-fw-mgmt-port-branch1.png)
 
-!\[Tangier Branch firewall management port](img/config-fw-mgmt-port-branch2.png)
+![Tangier Branch firewall management port](img/config-fw-mgmt-port-branch2.png)
 
 ### Concept
 
@@ -171,7 +171,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ip dhcp` then `show ip`
 * **Expected result:** Address in 10.1.10.0/24, gateway 10.1.10.254, DNS handed out.
 
-!\[DHCP on a VLAN (VPC)](img/test-dhcp-vpc-			hr2.png)
+![DHCP on a VLAN (VPC)](img/test-dhcp-vpc-			hr2.png)
 
 ### Test 2 - DHCP on a VLAN (Windows)
 
@@ -179,7 +179,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ipconfig /all`
 * **Expected result:** Address in 10.1.20.0/24 with the DHCP-provided gateway and DNS.
 
-!\[DHCP on a VLAN (Windows)](img/test-dhcp-windows-sales1.png)
+![DHCP on a VLAN (Windows)](img/test-dhcp-windows-sales1.png)
 
 ### Test 3 - DHCP at Rabat
 
@@ -187,7 +187,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ipconfig /all`
 * **Expected result:** Address in 10.2.0.0/24, gateway 10.2.0.254.
 
-!\[DHCP at Rabat](img/test-dhcp-rabat.png)
+![DHCP at Rabat](img/test-dhcp-rabat.png)
 
 ### Test 4 - DHCP at Tangier
 
@@ -195,7 +195,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ipconfig /all`
 * **Expected result:** Address in 10.3.0.0/24, gateway 10.3.0.254.
 
-!\[DHCP at Tangier](img/test-dhcp-tangier.png)
+![DHCP at Tangier](img/test-dhcp-tangier.png)
 
 ### Test 5 - Redundant interface failover
 
@@ -203,7 +203,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ping 10.1.10.254 -t` while disabling the active member port
 * **Expected result:** Brief loss at most; the standby member takes over (Network > Interfaces).
 
-!\[Redundant interface failover](img/test-redundant-interface-failover.png)
+![Redundant interface failover](img/test-redundant-interface-failover.png)
 
 ### Test 6 - Management GUI access
 
@@ -211,10 +211,10 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** Browse to `https://192.168.10.251`
 * **Expected result:** FortiGate login page reachable from the management network.
 
-!\[Management GUI access](img/test-fw-gui-mgmt.png)
+![Management GUI access](img/test-fw-gui-mgmt.png)
 
 ## References
 
 * [Redundant interface config](https://youtu.be/6oaE4Y2QCgs)
-* [VLANS \& DHCP config / inter-VLAN routing \& VLAN s to WAN policies config](https://youtu.be/j_lZI_m6sgU)
+* [VLANS & DHCP config / inter-VLAN routing & VLAN s to WAN policies config](https://youtu.be/j_lZI_m6sgU)
 
