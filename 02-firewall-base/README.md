@@ -171,7 +171,7 @@ Each test lists where to run it, the command and the expected result, followed b
 * **Command / action:** `ip dhcp` then `show ip`
 * **Expected result:** Address in 10.1.10.0/24, gateway 10.1.10.254, DNS handed out.
 
-![DHCP on a VLAN (VPC)](img/test-dhcp-vpc-			hr2.png)
+![DHCP on a VLAN (VPC)](img/test-dhcp-vpc-hr2.png)
 
 ### Test 2 - DHCP on a VLAN (Windows)
 
