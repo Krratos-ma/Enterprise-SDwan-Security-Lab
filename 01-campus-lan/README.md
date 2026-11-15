@@ -355,8 +355,6 @@ line vty 0 4
   transport input ssh
 ```
 
-![DSW1 management VLAN interface and SSH configuration](img/config-dsw1-ssh-mgmt.png)
-
 - Then run the same on **DSW2**, only change the IP address of **G0/3** to ``192.168.10.12`` and the hostname to ``DSW2``.
 
 ### Mgmt-Switch & DMZ-Switch
