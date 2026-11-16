@@ -77,13 +77,15 @@ config system interface
     end
 ```
 
-![Per-unit management IP on port6](img/config-ha-mgmt-ip.png)
+![Per-unit management IP on port6 - Primary FW](img/config-ha-mgmt-ip-primary.png)
+
+![Per-unit management IP on port6 - Secondary FW](img/config-ha-mgmt-ip-secondary.png)
 
 - These are the IPs that will be used later on to access the firewalls GUIs.
 
 After configuring the HA cluster, all later configs are done only on the **Primary-FW**. The **Secondary-FW** automatically syncs its config to match it.
 
-An **SD-WAN zone** called ``SD-ZONE`` is created, **WAN1**(*port5*) & **WAN2**(*port4*) are set up as the **SD-WAN members** in this zone (*WAN1's cost is ``0`` while WAN2's cost is ``1``*), the **gateway** is specified as the IP address of the **ISP router's interface** on the other end of each WAN port (*In the video, it was dynamic since there were built-in DHCPs on the interfaces of the routers).
+An **SD-WAN zone** called ``SD-ZONE`` is created, **WAN1**(*port5*) & **WAN2**(*port4*) are set up as the **SD-WAN members** in this zone (*WAN1's cost is ``0`` while WAN2's cost is ``1``*), the **gateway** is specified as the IP address of the **ISP router's interface** on the other end of each WAN port (*In the video, it was dynamic since there were built-in DHCPs on the interfaces of the routers*).
 
 ![SD-WAN zone with WAN1 and WAN2 members](img/config-sdwan-zone-members.png)
 
@@ -127,7 +129,13 @@ Almost the exact same config is done on each branch firewall, with some exceptio
 	- **Destination**: ``all``
 	- **Service**: ``ALL`` / **Schedule**: ``always`` / **Action**: ``ACCEPT`` / **NAT**: *enabled*
 
-![Branch SD-WAN zone, SLA, rule and policy](img/config-branch-sdwan.png)
+![Branch SD-WAN zone](img/config-branch-sdwan-zone.png)
+
+![Branch SD-WAN rule](img/config-branch-sdwan-rule.png)
+
+![Branch performance SLA](img/config-branch-sdwan-sla.png)
+
+![Branch SD-WAN policy](img/config-branch-sdwan-policy.png)
 
 ## Internet access for EVE-NG
 
@@ -144,7 +152,7 @@ nano /etc/network/interfaces
 
  For ``pnet1``, change mode from manual to **static**, and set up the **address** & **netmask**
 
-![EVE-NG CLI - /etc/network/interfaces with pnet1 set to a static address](img/config-eve-pnet1-interfaces.png)
+![EVE-NG CLI with pnet1 set to a static address](img/config-eve-pnet1-interfaces.png)
 
 - Save and exit.
 - This sets an IP address for EVE-NG's pnet1 logical interface.
@@ -225,61 +233,65 @@ If you have multiple hosts that you want to provide internet access to, do as in
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - HA cluster status
 
-- **Run on:** Primary and secondary FortiGate
-- **Command / action:** `get system ha status`
-- **Expected result:** Both units listed, one Primary and one Secondary, configuration in sync.
+- **Devices:** Primary and secondary FortiGate
+- **Command:** `get system ha status`
+- **Result:** Both units listed, one Primary and one Secondary, configuration in sync.
 
-![HA cluster status](img/test-ha-status.png)
+![HA cluster status on Primary FW](img/test-ha-status-primary.png)
+
+![HA cluster status on Secondary FW](img/test-ha-status-secondary.png)
 
 ### Test 2 - HA failover
 
-- **Run on:** VLAN host plus primary FortiGate
-- **Command / action:** `ping 8.8.8.8 -t` while powering off the primary
-- **Expected result:** The secondary becomes primary; only a few packets are lost.
+- **Devices:** VLAN host plus primary FortiGate
+- **Command & Action:** `ping 8.8.8.8 -t` while powering off the primary FW
+- **Result:** The secondary becomes primary; only a few packets are lost.
 
 ![HA failover](img/test-ha-failover.png)
 
 ### Test 3 - SD-WAN health check
 
-- **Run on:** Primary FortiGate
-- **Command / action:** `diagnose sys sdwan health-check` (or Network > SD-WAN > Performance SLAs)
-- **Expected result:** WAN1 and WAN2 both alive with latency/jitter/loss values.
+- **Device:** Primary FortiGate
+- **Action:** From Network > SD-WAN > Performance SLAs.
+- **Result:** WAN1 & WAN2 both alive with latency/jitter/loss values.
 
 ![SD-WAN health check](img/test-sdwan-sla-status.png)
 
 ### Test 4 - Internet from a VLAN
 
-- **Run on:** HR1
-- **Command / action:** `ping 8.8.8.8`
-- **Expected result:** Replies received through the SD-WAN zone.
+- **Device:** HR1
+- **Command:** `ping 8.8.8.8`
+- **Result:** Replies received through the SD-WAN zone.
 
 ![Internet from a VLAN](img/test-internet-from-vlan.png)
 
 ### Test 5 - DNS from the firewall
 
-- **Run on:** Primary FortiGate
-- **Command / action:** `execute ping www.google.com`
-- **Expected result:** Name resolves and replies are received.
+- **Device:** Primary FortiGate
+- **Command:** `execute ping www.google.com`
+- **Result:** Name resolves and replies are received.
 
 ![DNS from the firewall](img/test-fw-dns-ping.png)
 
 ### Test 6 - WAN1 failover
 
-- **Run on:** HR1 plus ISP link
-- **Command / action:** `ping 8.8.8.8 -t` while disconnecting the WAN1 link
-- **Expected result:** Traffic moves to WAN2; the SD-WAN monitor shows WAN1 dead.
+- **Devices:** HR1 plus ISP link
+- **Command & Action:** `ping 8.8.8.8 -t` while disconnecting the WAN1 link
+- **Result:** Traffic moves to WAN2; the SD-WAN monitor shows WAN1 dead.
 
-![WAN1 failover](img/test-sdwan-wan1-failover.png)
+![Ping from HR1](img/test-sdwan-wan1-failover-ping.png)
+
+![Disabling WAN1 from FW's CLI](img/test-disable-wan1.png)
+
+![WAN1 failover from FW's GUI](img/test-sdwan-wan1-failover.png)
 
 ### Test 7 - ISP router internet
 
-- **Run on:** ISP1-casa
-- **Command / action:** `ping 8.8.8.8`
-- **Expected result:** Replies received through the EVE-NG NAT cloud.
+- **Device:** ISP1-casa
+- **Command:** `ping 8.8.8.8`
+- **Result:** Replies received through the EVE-NG NAT cloud.
 
 ![ISP router internet](img/test-isp-internet-ping.png)
 
@@ -287,5 +299,5 @@ Each test lists where to run it, the command and the expected result, followed b
 
 - [YouTube - original HA / SD-WAN walkthrough](https://youtu.be/EJ7HTXDL7E4)
 - [Fortinet documentation on SLA lowest cost strategy](https://docs.fortinet.com/document/fortigate/8.0.0/administration-guide/342836/lowest-cost-sla-strategy)
-- [Devin Adams configuring Fortigate HA cluster](https://youtu.be/ph7t0qJXLHg)
+- [Youtube - Devin Adams configuring Fortigate HA cluster](https://youtu.be/ph7t0qJXLHg)
 - [YouTube - internet access for EVE-NG labs](https://youtu.be/3ZdG-yAJx_0)
