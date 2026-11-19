@@ -24,7 +24,7 @@ Follow what is on the [video](https://youtu.be/EJ7HTXDL7E4?si=EpuKjwRdetV5Zumg) 
 	- **Source** (*multiple IP objects*): VLAN10,20,30,40's subnet IP objects.
 	- **Destination**: ``all``
 	- **Service**: ``ALL`` / **Schedule**: ``always`` / **Action**: ``ACCEPT`` / **NAT**: *enabled*
-- This policy will be edited later on in [Internet access from DMZ](../07-dmz-webserver/README.md#internet-access-from-dmz).
+- This policy will be edited later on in [Internet access from DMZ](../07-dmz-webserver/README.md#internet-access-from-dmz), and it will represent the global Internet access policy.
 
 ![VLANs-to-SDzone outbound policy](img/config-policy-vlans-to-sdzone.png)
 
@@ -129,13 +129,21 @@ Almost the exact same config is done on each branch firewall, with some exceptio
 	- **Destination**: ``all``
 	- **Service**: ``ALL`` / **Schedule**: ``always`` / **Action**: ``ACCEPT`` / **NAT**: *enabled*
 
-![Branch SD-WAN zone](img/config-branch-sdwan-zone.png)
+![Branch1 SD-WAN zone](img/config-branch1-sdwan-zone.png)
 
-![Branch SD-WAN rule](img/config-branch-sdwan-rule.png)
+![Branch1 SD-WAN rule](img/config-branch1-sdwan-rule.png)
 
-![Branch performance SLA](img/config-branch-sdwan-sla.png)
+![Branch1 performance SLA](img/config-branch1-sdwan-sla.png)
 
-![Branch SD-WAN policy](img/config-branch-sdwan-policy.png)
+![Branch1 SD-WAN policy](img/config-branch1-sdwan-policy.png)
+
+![Branch2 SD-WAN zone](img/config-branch2-sdwan-zone.png)
+
+![Branch2 SD-WAN rule](img/config-branch2-sdwan-rule.png)
+
+![Branch2 performance SLA](img/config-branch2-sdwan-sla.png)
+
+![Branch2 SD-WAN policy](img/config-branch2-sdwan-policy.png)
 
 ## Internet access for EVE-NG
 
@@ -280,10 +288,6 @@ If you have multiple hosts that you want to provide internet access to, do as in
 - **Devices:** HR1 plus ISP link
 - **Command & Action:** `ping 8.8.8.8 -t` while disconnecting the WAN1 link
 - **Result:** Traffic moves to WAN2; the SD-WAN monitor shows WAN1 dead.
-
-![Ping from HR1](img/test-sdwan-wan1-failover-ping.png)
-
-![Disabling WAN1 from FW's CLI](img/test-disable-wan1.png)
 
 ![WAN1 failover from FW's GUI](img/test-sdwan-wan1-failover.png)
 

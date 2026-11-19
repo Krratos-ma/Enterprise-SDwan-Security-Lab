@@ -133,8 +133,8 @@ end
 
 > **Note:** `192.168.10.254` is the temporary management address used before HA is configured. Once the cluster is formed each unit gets its own management IP (`192.168.10.251` on the primary, `192.168.10.252` on the secondary), see [FW's HA & SD-WAN & zones & default route config](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route).
 
-* You don't have to set up a management port for the secondary FW's GUI access. After you configure HA on both firewalls, you'll be able to set up a separate management IP for each member of the HA cluster (*see >* [*FW's HA & SD-WAN & zones & default route config*](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route)).
-* In fact, the secondary FW doesn't have `port6` connected to the **MGMT switch**. But once you configure the mgmt-ips on `port6` each FW, you'll be able to access the secondary FW from the primary FW through the heartbeat interafaces.
+* ou don't have to configure ``port6`` for the secondary FW's GUI access. After you configure HA on both firewalls, you'll be able to set up a separate management IP for each member of the HA cluster (*see >* [*FW's HA & SD-WAN & zones & default route config*](../03-ha-sdwan/README.md#ha-cluster-sd-wan-zone-and-default-route)).
+* But, you still have to connect ``port6`` of the secondary FW the switch leading to the mgmt host.
 
 ### Branch Firewalls config
 
