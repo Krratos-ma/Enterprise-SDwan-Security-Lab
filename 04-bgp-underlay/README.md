@@ -222,7 +222,7 @@ router bgp 64300
   * **IP**: `196.200.12.2` / **Remote AS**: `64200` (*ISP1-tangier*)
   * **IP**: `213.150.22.2` / **Remote AS**: `64300` (*ISP2-tangier*)
 
-\---
+---
 
 [Tangier FortiGate BGP configuration](img/config-fw-bgp-tangier.png)
 
@@ -237,13 +237,13 @@ Run:
 execute router clear bgp all
 
 # On routers
-clear ip bgp \\\\\\\*
+clear ip bgp *
 ```
 
-* After this, the BGP TCP sessions will be cleared and all firewalls \& routers will loose connectivity to their BGP neighbors.
+* After this, the BGP TCP sessions will be cleared and all firewalls & routers will loose connectivity to their BGP neighbors.
 * Then, they will all re-form BGP neighborships and learn BGP routes from each other the right way.
 
-\---
+---
 
 ### Concept
 
@@ -259,7 +259,7 @@ Each hub ISP and its corresponding ISP routers in each branch are configured as 
 
 * The next-hop-self is configured on both iBGP neighbors so that when an ISP router(*branch or hub ISP*) tries to advertise a route it's learned via eBGP (*from a spoke or hub firewall*), it explicitly changes the next-hop address to itself, so that the iBGP neighbor knows how to reach the advertised subnet (*which is by sending traffic to its iBGP neighbor*).
 
-Each hub \& branch ISP is set up to advertise the subnet from its connection to the company's hub or spoke firewall. This provides the essential BGP routes that will later on link the hub firewall and each branch firewall via an IPsec VPN tunnel. The routes are;
+Each hub & branch ISP is set up to advertise the subnet from its connection to the company's hub or spoke firewall. This provides the essential BGP routes that will later on link the hub firewall and each branch firewall via an IPsec VPN tunnel. The routes are;
 
 * In the hub firewall, a route to reach the public IPs of each branch firewall (*hub FW > hub ISP > branch ISP > branch FW*).
 * In each branch firewall, a route to reach the public IPs of the hub firewall (*branch FW > branch ISP > hub ISP > hub FW*).
@@ -323,7 +323,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 
 ### Test 7 - Underlay reachability from branches
 
-* **Devices:** Rabat \& Tangier FortiGate
+* **Devices:** Rabat & Tangier FortiGate
 * **Command:** `execute ping 196.200.10.17` and `execute ping 213.150.20.17`
 * **Result:** Replies on both ISP paths.
 
