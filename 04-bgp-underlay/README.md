@@ -39,7 +39,7 @@ router bgp 64200
   neighbor 196.200.10.5 default-originate
 ```
 
-[ISP1-casa BGP configuration](img/config-isp1-casa-bgp.png)
+![ISP1-casa BGP configuration](img/config-isp1-casa-bgp.png)
 
 
 
@@ -74,7 +74,7 @@ router bgp 64300
   neighbor 213.150.20.5 default-originate
 ```
 
-[ISP2-casa BGP configuration](img/config-isp2-casa-bgp.png)
+![ISP2-casa BGP configuration](img/config-isp2-casa-bgp.png)
 
 
 
@@ -102,7 +102,7 @@ router bgp 64200
   network 196.200.11.0 mask 255.255.255.252
 ```
 
-[ISP1-rabat BGP configuration](img/config-isp1-rabat-bgp.png)
+![ISP1-rabat BGP configuration](img/config-isp1-rabat-bgp.png)
 
 
 
@@ -130,7 +130,7 @@ router bgp 64300
   network 213.150.21.0 mask 255.255.255.252
 ```
 
-[ISP2-rabat BGP configuration](img/config-isp2-rabat-bgp.png)
+![ISP2-rabat BGP configuration](img/config-isp2-rabat-bgp.png)
 
 
 
@@ -158,7 +158,7 @@ router bgp 64200
   network 196.200.12.0 mask 255.255.255.252
 ```
 
-[ISP1-tangier BGP configuration](img/config-isp1-tangier-bgp.png)
+![ISP1-tangier BGP configuration](img/config-isp1-tangier-bgp.png)
 
 
 
@@ -186,7 +186,7 @@ router bgp 64300
   network 213.150.22.0 mask 255.255.255.252
 ```
 
-[ISP2-tangier BGP configuration](img/config-isp2-tangier-bgp.png)
+![ISP2-tangier BGP configuration](img/config-isp2-tangier-bgp.png)
 
 ### Firewalls config
 
@@ -198,7 +198,7 @@ router bgp 64300
   * **IP**: `196.200.10.18` / **Remote AS**: `64200` (*ISP1-casa*)
   * **IP**: `213.150.20.18` / **Remote AS**: `64300` (*ISP2-casa*)
 
-[Hub FortiGate BGP configuration](img/config-fw-bgp-hq.png)
+![Hub FortiGate BGP configuration](img/config-fw-bgp-hq.png)
 
 
 
@@ -210,7 +210,7 @@ router bgp 64300
   * **IP**: `196.200.11.2` / **Remote AS**: `64200` (*ISP1-rabat*)
   * **IP**: `213.150.21.2` / **Remote AS**: `64300` (*ISP2-rabat*)
 
-[Rabat FortiGate BGP configuration](img/config-fw-bgp-rabat.png)
+![Rabat FortiGate BGP configuration](img/config-fw-bgp-rabat.png)
 
 
 
@@ -224,7 +224,7 @@ router bgp 64300
 
 ---
 
-[Tangier FortiGate BGP configuration](img/config-fw-bgp-tangier.png)
+![Tangier FortiGate BGP configuration](img/config-fw-bgp-tangier.png)
 
 ### BGP clearing config (**must do!!!**)
 
@@ -279,7 +279,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `show ip bgp summary`
 * **Result:** Hub firewall (eBGP) and the other ISP routers (iBGP) are Established.
 
-[BGP neighbors on ISP1-casa](img/test-bgp-summary-isp1-casa.png)
+![BGP neighbors on ISP1-casa](img/test-bgp-summary-isp1-casa.png)
 
 ### Test 2 - BGP neighbors on ISP2-casa
 
@@ -287,7 +287,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `show ip bgp summary`
 * **Result:** All neighbors Established.
 
-[BGP neighbors on ISP2-casa](img/test-bgp-summary-isp2-casa.png)
+![BGP neighbors on ISP2-casa](img/test-bgp-summary-isp2-casa.png)
 
 ### Test 3 - BGP neighbors on the hub firewall
 
@@ -295,7 +295,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `get router info bgp summary`
 * **Result:** Both ISP neighbors Established.
 
-[BGP neighbors on the hub firewall](img/test-bgp-summary-hub-fw.png)
+![BGP neighbors on the hub firewall](img/test-bgp-summary-hub-fw.png)
 
 ### Test 4 - BGP routes on the hub firewall
 
@@ -303,7 +303,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `get router info routing-table bgp`
 * **Result:** Branch WAN networks are learned via BGP.
 
-[BGP routes on the hub firewall](img/test-hub-fw-bgp-routes.png)
+![BGP routes on the hub firewall](img/test-hub-fw-bgp-routes.png)
 
 ### Test 5 - Rabat firewall routing
 
@@ -311,7 +311,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:**  `get router info routing-table all`
 * **Result:** Neighbors Established; hub WAN prefixes present.
 
-[Rabat firewall routing](img/test-rabat-fw-routing.png)
+![Rabat firewall routing](img/test-rabat-fw-routing.png)
 
 ### Test 6 - Tangier firewall routing
 
@@ -319,7 +319,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Commands:** `get router info routing-table all`
 * **Result:** Neighbors Established.
 
-[Tangier firewall routing](img/test-tangier-fw-routing.png)
+![Tangier firewall routing](img/test-tangier-fw-routing.png)
 
 ### Test 7 - Underlay reachability from branches
 
@@ -327,19 +327,19 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `execute ping 196.200.10.17` and `execute ping 213.150.20.17`
 * **Result:** Replies on both ISP paths.
 
-[Underlay reachability from branches](img/test-underlay-branches-to-hub-wan1-rabat.png)
+![Underlay reachability from branches](img/test-underlay-branches-to-hub-wan1-rabat.png)
 
 
 
-[Underlay reachability from branches](img/test-underlay-branches-to-hub-wan2-rabat.png)
+![Underlay reachability from branches](img/test-underlay-branches-to-hub-wan2-rabat.png)
 
 
 
-[Underlay reachability from branches](img/test-underlay-branches-to-hub-wan1-tangier.png)
+![Underlay reachability from branches](img/test-underlay-branches-to-hub-wan1-tangier.png)
 
 
 
-[Underlay reachability from branches](img/test-underlay-branches-to-hub-wan2-tangier.png)
+![Underlay reachability from branches](img/test-underlay-branches-to-hub-wan2-tangier.png)
 
 ### Test 8 - Branch internet access
 
@@ -347,7 +347,7 @@ The last commands that you must run are here: [BGP clearing config (**must do!!!
 * **Command:** `ping 8.8.8.8`
 * **Result:** Replies received through the branch SD-WAN and the ISP chain.
 
-[Branch internet access](img/test-rabat-host-internet.png)
+![Branch internet access](img/test-rabat-host-internet.png)
 
 ## References
 
