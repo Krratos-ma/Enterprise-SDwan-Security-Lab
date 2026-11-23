@@ -168,7 +168,9 @@ end
 
 - **Make sure that both VPN SD-WAN rules are placed above the general LAN to SD-WAN rule**
 
-![Hub - SLAs and SD-WAN rules](img/config-vpn-hub-sla-rules.png)
+![Hub - SLAs](img/config-vpn-hub-sla.png)
+
+![Hub - SD-WAN rules](img/config-vpn-hub-rules.png)
 
 
 ##### VPN Tunnels IPs
@@ -210,8 +212,9 @@ end
 		- **SD-WAN zone**: ``SD-VPN-Hub``
 		- *Leave the rest as default*.
 
-![Branch - SD-VPN zone and tunnel members](img/config-vpn-branch-sdwan-members.png)
+![Branch1 - SD-VPN zone and tunnel members](img/config-vpn-branch1-sdwan-members.png)
 
+![Branch2 - SD-VPN zone and tunnel members](img/config-vpn-branch2-sdwan-members.png)
 
 ##### VPN Tunnels
 - From the left side bar, under **VPN** > **IPsec Tunnels**, edit the 2 VPN tunnels on each firewall:
@@ -225,8 +228,9 @@ end
 			- Set the same Remote address for **all tunnels** as the **Hub-LAN**.
 			- Enable ``Auto-negotiate`` from the dropdown "**Advanced(+)**".
 
-![Branch - IPsec tunnels](img/config-vpn-branch-tunnels.png)
+![Branch1 - IPsec tunnels](img/config-vpn-branch1-tunnels.png)
 
+![Branch2 - IPsec tunnels](img/config-vpn-branch2-tunnels.png)
 
 ##### Policies
 Make sure that **multiple interfaces** **per policy** is enabled on all firewalls.
@@ -244,8 +248,9 @@ Make sure that **multiple interfaces** **per policy** is enabled on all firewall
 	- Set the **Name** to ``Outbound-VPN``
 	- *Enable the policy*.
 
-![Branch - VPN policies](img/config-vpn-branch-policies.png)
+![Branch1 - VPN policies](img/config-vpn-branch1-policies.png)
 
+![Branch2 - VPN policies](img/config-vpn-branc2-policies.png)
 
 ##### Static Routes
 - Create 2 routes on each firewall, hub's subnet as dst. One route is valid, the other is blackhole.
@@ -257,8 +262,9 @@ Make sure that **multiple interfaces** **per policy** is enabled on all firewall
 		- **Interface**: ``Blackhole``
 		- **AD**: ``250``
 
-![Branch - static routes](img/config-vpn-branch-static-routes.png)
+![Branch1 - static routes](img/config-vpn-branch1-static-routes.png)
 
+![Branch2 - static routes](img/config-vpn-branch2-static-routes.png)
 
 ##### SD-WAN rules & SLAs
 - Create 1 **performance SLA** for **VPN** on each branch firewall:
@@ -298,8 +304,13 @@ end
 
 - On each firewall, **Make sure the VPN SD-WAN rule is placed above the general LAN to SD-WAN rule**
 
-![Branch - SLAs and SD-WAN rules](img/config-vpn-branch-sla-rules.png)
+![Branch2 - Performance VPN SLA](img/config-vpn-branch2-sla.png)
 
+![Branch2 - VPN SD-WAN Rule](img/config-vpn-branch2-rules.png)
+
+![Branch1 - Performance VPN SLA](img/config-vpn-branch1-sla.png)
+
+![Branch1 - VPN SD-WAN Rule](img/config-vpn-branch1-rules.png)
 
 ##### VPN Tunnels IPs
 - On each firewall, from the left side bar, under **Network** > **Interfaces** > **WAN1(port5)** or **WAN2(port4)**, assign an **IP address** and a **Remote IP/Netmask** to both VPN tunnel interfaces:
@@ -319,8 +330,9 @@ end
 			- **Remote IP/Netmask**: ``1.1.1.4/32`` (*Hub FW's ``VPN2-Tangier`` tunnel interface IP*)
 ---
 
-![Branch - tunnel interface IPs](img/config-vpn-branch-tunnel-ips.png)
+![Branch - tunnel interface IPs](img/config-vpn-branch1-tunnel-ips.png)
 
+![Branch - tunnel interface IPs](img/config-vpn-branch2-tunnel-ips.png)
 
 ### Concept
 The enterprise overlay architecture establishes a redundant **Hub-and-Spoke IPsec VPN topology integrated with FortiOS SD-WAN** across the two branch offices (*Rabat and Tangier*).
@@ -392,8 +404,11 @@ This comes down to how FortiOS handles traffic that is meant to be sent out of a
 
 The fix was easy, move the VPN SD-WAN rule on top of the general SD-WAN rule. This way, both internet traffic and remote site traffic will find their way.
 
-![SD-WAN rule order after the fix](img/test-vpn-sdwan-rule-order-fixed.png)
+![SD-WAN rule order after the fix hub](img/test-vpn-sdwan-rule-order-fixed-hub.png)
 
+![SD-WAN rule order after the fix branch1](img/test-vpn-sdwan-rule-order-fixed-branch1.png)
+
+![SD-WAN rule order after the fix branch2](img/test-vpn-sdwan-rule-order-fixed-branch2.png)
 
 #### Specify IPs for the VPN tunnel interfaces to fix the tracert issue
 When testing end-to-end routing between the Hub and a branch (*Rabat*), running a `traceroute` from a host in Rabat's LAN (`10.2.0.1`) to a host in the Hub's VLAN 10 (`10.1.10.1`) returned an unexpected intermediate hop:
@@ -445,7 +460,7 @@ Each test lists where to run it, the command and the expected result, followed b
 ### Test 4 - Rabat to HQ
 
 - **Run on:** Rabat end host
-- **Command / action:** `ping <HQ host IP>`
+- **Command / action:** `ping 10.1.10.3`
 - **Expected result:** Replies received.
 
 ![Rabat to HQ](img/test-ping-rabat-to-hq.png)
@@ -453,7 +468,7 @@ Each test lists where to run it, the command and the expected result, followed b
 ### Test 5 - Tangier to HQ
 
 - **Run on:** Tangier end host
-- **Command / action:** `ping <HQ host IP>`
+- **Command / action:** `ping 10.1.10.3`
 - **Expected result:** Replies received.
 
 ![Tangier to HQ](img/test-ping-tangier-to-hq.png)
@@ -461,7 +476,7 @@ Each test lists where to run it, the command and the expected result, followed b
 ### Test 6 - HQ to branches
 
 - **Run on:** HQ end host
-- **Command / action:** `ping <Rabat host IP>` and `ping <Tangier host IP>`
+- **Command / action:** `ping 10.2.0.1` and `ping 10.3.0.2`
 - **Expected result:** Replies received.
 
 ![HQ to branches](img/test-ping-hq-to-branches.png)
@@ -469,7 +484,7 @@ Each test lists where to run it, the command and the expected result, followed b
 ### Test 7 - Path through the tunnel
 
 - **Run on:** Rabat end host
-- **Command / action:** `tracert <HQ host IP>`
+- **Command / action:** `tracert 10.1.10.3`
 - **Expected result:** The hop after the branch gateway is a tunnel IP, not an ISP address.
 
 ![Path through the tunnel](img/test-tracert-rabat-to-hq.png)
@@ -485,26 +500,10 @@ Each test lists where to run it, the command and the expected result, followed b
 ### Test 9 - Failover between tunnels
 
 - **Run on:** Rabat end host plus ISP1-rabat link
-- **Command / action:** `ping <HQ host IP> -t` while disconnecting the ISP1 link
+- **Command / action:** `ping 10.1.10.3 -t` while disconnecting the ISP1 link
 - **Expected result:** Traffic moves to the second tunnel with brief loss.
 
 ![Failover between tunnels](img/test-vpn-failover.png)
-
-### Test 10 - Fail-closed blackhole (optional)
-
-- **Run on:** Rabat end host
-- **Command / action:** Bring both tunnels down, then `ping <HQ host IP>`
-- **Expected result:** Ping fails and no private traffic leaves in clear.
-
-![Fail-closed blackhole (optional)](img/test-vpn-blackhole.png)
-
-### Test 11 - Traffic is encrypted
-
-- **Run on:** Wireshark on the ISP1-casa/ISP1-rabat link
-- **Command / action:** Capture while pinging across the VPN
-- **Expected result:** Only IKE (UDP 500/4500) and ESP packets; no ICMP in clear.
-
-![Traffic is encrypted](img/test-wireshark-esp.png)
 
 ## References
 
