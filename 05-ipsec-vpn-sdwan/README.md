@@ -431,8 +431,6 @@ The fix is easy, assign a ``/32`` IP addresses to the IPsec tunnel interfaces on
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - Tunnels up on the hub
 
 - **Run on:** Hub FortiGate
