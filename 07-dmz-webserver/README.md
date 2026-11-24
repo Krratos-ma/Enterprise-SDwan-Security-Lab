@@ -121,8 +121,10 @@ ifconfig eth0
 ## DMZ zone, policies and protection
 
 ### WebServer config
+
 For the WebServer config, a Linux Tiny Core VM is placed in the DMZ zone, The server is connected to the DMZ-Switch. From the other side, the DMZ switch is connected to the DMZ ports (``port3``) of both the primary and secondary firewall (*both using the IP; ``172.16.10.254``*).
 See > [Set up WebServer (Linux-tiny)](#webserver-setup) for the WebServer's OS-level setup (IP, services, boot persistence).
+
 ---
 
 ![DMZ interface and zone](img/config-dmz-zone-interface.png)
@@ -230,77 +232,59 @@ This policy works the same way as the [SD-ZONE to DMZ(WebServer) policy](#sd-zon
 
 #### Internet access from DMZ
 On the hub FW. The DMZ port (``port3``) is added to the policy that allows access to the internet for VLANs, the DMZ subnet IP range (``172.16.10.0/24``) is also added to the src IP field of that policy.
-The original policy is [the VLANs-to-SDzone policy](../03-ha-sdwan/README.md#config). You might wanna change the policy's name to something like "**Internet-Access**".
+The original policy is [the VLANs-to-SDzone policy](../03-ha-sdwan/README.md#config). And the policy's name changed to "**Internet-Access**".
 
 ![DMZ to internet policy](img/config-dmz-internet-policy.png)
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - Web access from the internet
 
-- **Run on:** External host
-- **Command / action:** Browse to `http://<WebServer public IP>`
-- **Expected result:** The web page loads through the virtual IP.
+- **Device:** External host
+- **Action:** Browse to `http://196.200.10.17`
+- **Result:** The web page loads through the virtual IP.
 
 ![Web access from the internet](img/test-web-from-internet.png)
 
 ### Test 2 - Web access from an internal VLAN
 
-- **Run on:** HR1
-- **Command / action:** Browse to `http://www.cbi.local` and `ping <DMZ IP>`
-- **Expected result:** Page loads and ping answers.
+- **Device:** HR1
+- **Action & Command:** Browse to `http://www.cbi.local` and `ping 196.200.10.17`
+- **Result:** Page loads and ping answers.
 
 ![Web access from an internal VLAN](img/test-web-from-vlan.png)
 
-### Test 3 - Blocked VLAN (optional)
-
-- **Run on:** DC (VLAN 40)
-- **Command / action:** Browse to `http://www.cbi.local`
-- **Expected result:** Timeout, since VLAN 40 is not allowed to the DMZ.
-
-![Blocked VLAN (optional)](img/test-web-from-vlan40-blocked.png)
-
 ### Test 4 - DMZ to internet
 
-- **Run on:** WebServer
-- **Command / action:** `ping 8.8.8.8`
-- **Expected result:** Replies received.
+- **Device:** WebServer
+- **Command:** `ping 8.8.8.8`
+- **Result:** Replies received.
 
 ![DMZ to internet](img/test-dmz-internet-ping.png)
 
 ### Test 5 - Traffic log
 
-- **Run on:** FortiGate GUI (Log & Report > Forward Traffic)
-- **Command / action:** Filter on the web session
-- **Expected result:** Session logged with the expected policy.
+- **From:** FortiGate GUI (Log & Report > Forward Traffic)
+- **Action:** Filter on the web session
+- **Result:** Session logged with the expected policy.
 
 ![Traffic log](img/test-dmz-traffic-log.png)
 
 ### Test 6 - ICMP flood detection
 
-- **Run on:** External host (for example Kali)
-- **Command / action:** `hping3 --icmp --flood <WebServer public IP>`
-- **Expected result:** DoS anomaly logged for icmp_flood.
+- **Device:** Remote host (Kali)
+- **Command:** `ping -f 196.200.10.17`
+- **Result:** DoS anomaly logged for icmp_flood.
 
 ![ICMP flood detection](img/test-dos-anomaly-log.png)
 
 ### Test 7 - Quarantine
 
-- **Run on:** FortiGate GUI (Dashboard > Quarantine monitor)
-- **Command / action:** Check after the flood
-- **Expected result:** The attacker IP is quarantined.
+- **From:** FortiGate GUI (Dashboard > Quarantine monitor)
+- **Action:** Check after the flood
+- **Result:** The attacker IP is quarantined.
 
 ![Quarantine](img/test-dos-quarantine-list.png)
-
-### Test 8 - WAF event (optional)
-
-- **Run on:** External host
-- **Command / action:** `curl "http://<WebServer public IP>/?id=1%27%20OR%20%271%27=%271"`
-- **Expected result:** Request is logged (and blocked if the WAF action is block).
-
-![WAF event (optional)](img/test-waf-sqli-attempt.png)
 
 ## References
 
