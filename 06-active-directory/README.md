@@ -104,7 +104,7 @@ I'll explain some of the configured settings:
 - **Common Name Identifier (`sAMAccountName`):** Tells FortiGate to identify users by their Windows logon username (*e.g., `mehdi`, ``abdelilah``, ``houssam``, `Administrator`*).
 - **Distinguished Name (`DC=cbi,DC=local`):** The root search base where FortiGate looks for user and group objects.
 - **Bind Account:** A service or admin account FortiGate uses to authenticate itself to AD so the DC permits directory lookups (*we used the admin account here*).
-- **UPN**(*User Principal Name*) - `Administrator@cbi.local`. Once a user is created in the AD, the DC gives it a special name. The admin's UPN is what should be used as the username when we first try to integrate a Fortigate into an Active Directory domain. That special name is made up of the Windows logon username (*e.g, ``Administrator``*) and the domain name, that special name looks like an email in the following form:$$\text{UPN} = \text{sAMAccountName} + \text{@} + \text{Domain Name}$$
+- **UPN**(*User Principal Name*) - `Administrator@cbi.local`. Once a user is created in the AD, the DC gives it a special name. The admin's UPN is what should be used as the username when we first try to integrate a Fortigate into an Active Directory domain. That special name is made up of the Windows logon username (*e.g, ``Administrator``*) and the domain name, that special name looks like an email in the following form:  UPN = sAMAccountName + @ + Domain Name
 - ``sAMAccountName`` is the normal Windows logon name as explained before, and it can be used to test a user's credentials (*username & password, see the **Test User Credentials** step above*) after we succeed the 1st connectivity test.
 
 ![FortiGate LDAP server settings](img/config-fg-ldap-server.png)
@@ -127,69 +127,59 @@ From the left hand menu, go to **User & Authentication** > **User Groups**, clic
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - Domain join and login
 
-- **Run on:** HR1
-- **Command / action:** `systeminfo | findstr /B /C:"Domain"` and `whoami`
-- **Expected result:** Domain is cbi.local and the logged-in user is a CBI domain user.
+- **Device:** HR1
+- **Commands:** `ipconfig /all` and `whoami`
+- **Result:** Domain is cbi.local and the logged-in user is a CBI domain user.
 
 ![Domain join and login](img/test-domain-login-hr1.png)
 
 ### Test 2 - Forward DNS lookup
 
-- **Run on:** IT1
-- **Command / action:** `nslookup Sales1.cbi.local`
-- **Expected result:** Returns the DHCP address of Sales1.
+- **Device:** IT1
+- **Command:** `nslookup Sales1.cbi.local`
+- **Result:** Returns the DHCP address of Sales1.
 
 ![Forward DNS lookup](img/test-nslookup-forward.png)
 
 ### Test 3 - Reverse DNS lookup
 
-- **Run on:** IT1
-- **Command / action:** `nslookup <Sales1 IP>`
-- **Expected result:** Returns Sales1.cbi.local (PTR record).
+- **Device:** IT1
+- **Command:** `nslookup <Sales1 IP>`
+- **Result:** Returns Sales1.cbi.local (PTR record).
 
 ![Reverse DNS lookup](img/test-nslookup-reverse.png)
 
 ### Test 4 - WebServer record
 
-- **Run on:** Any domain host
-- **Command / action:** `nslookup www.cbi.local`
-- **Expected result:** Returns the WebServer address in the DMZ.
+- **Device:** Any domain host
+- **Command:** `nslookup www.cbi.local`
+- **Result:** Returns the WebServer address in the DMZ.
 
 ![WebServer record](img/test-nslookup-www.png)
 
 ### Test 5 - Time source on the DC
 
-- **Run on:** DC
-- **Command / action:** `w32tm /query /status`
-- **Expected result:** Source is the firewall NTP server.
+- **Device:** DC
+- **Command:** `w32tm /query /status`
+- **Result:** Source is the firewall NTP server (VLAN40 interface).
 
 ![Time source on the DC](img/test-dc-ntp-status.png)
 
-### Test 6 - Time source on an end host
-
-- **Run on:** HR1
-- **Command / action:** `w32tm /query /source`
-- **Expected result:** Source is the domain controller.
-
-![Time source on an end host](img/test-endhost-time-source.png)
-
 ### Test 7 - LDAP connectivity
 
-- **Run on:** FortiGate GUI (User & Authentication > LDAP Servers)
-- **Command / action:** Test Connectivity
-- **Expected result:** Status: Successful.
+- **Device:** FortiGate GUI (User & Authentication > LDAP Servers)
+- **Action:** Test Connectivity
+- **Result:** Status: Successful.
 
 ![LDAP connectivity](img/test-ldap-connectivity.png)
 
 ### Test 8 - LDAP user credentials
 
-- **Run on:** FortiGate GUI
-- **Command / action:** Test User Credentials with a domain user
-- **Expected result:** Status: Successful.
+- **Device:** FortiGate-HQ-Active
+- **Action:** Test User Credentials with a domain user
+- **Result:** Status: Successful.
 
 ![LDAP user credentials](img/test-ldap-user-credentials.png)
 
