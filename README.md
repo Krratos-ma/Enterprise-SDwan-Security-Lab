@@ -29,7 +29,7 @@ Every phase folder has its own README with the configuration (and screenshots), 
 | 08 | [Zero Trust](./08-zero-trust/) | Default-deny micro-segmentation, identity-aware policies, Kerberos attack surface |
 
 * [**Topology**](./topology/) - Network diagram
-* [**Documentation**](./documentation/) - IP addressing plan
+* [**Documentation**](./documentation/) - IP addressing plan & Unetlab topology file
 
 ## 🚀 Key Features
 * **Hub-and-spoke WAN**: HQ plus two branches, each connected by two IPsec tunnels (one per ISP path).
