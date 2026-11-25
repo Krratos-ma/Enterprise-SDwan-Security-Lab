@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lab name="PFA - CBI" version="1" scripttimeout="300" lock="0" author="Abdelilah">
+  <description>The Original PFA project lab</description>
+  <topology>
+    <nodes>
+      <node id="1" name="HR1" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="50189f42-cb66-4f74-a517-c52d073a96fe" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="387" top="33">
+        <interface id="0" name="e0" type="ethernet" network_id="1"/>
+      </node>
+      <node id="2" name="Sales1" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="d2251354-98ba-421b-910f-c651b0a939f3" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="660" top="48">
+        <interface id="0" name="e0" type="ethernet" network_id="3"/>
+      </node>
+      <node id="3" name="IT1" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="d0a73e4c-90f1-460d-a9fe-663f086209e0" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="927" top="78">
+        <interface id="0" name="e0" type="ethernet" network_id="5"/>
+      </node>
+      <node id="7" name="ASW1" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="2" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="444" top="177">
+        <interface id="0" name="e0/0" type="ethernet" network_id="1"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="37"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="7"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="10"/>
+        <interface id="1" name="e1/0" type="ethernet" network_id="46"/>
+      </node>
+      <node id="8" name="ASW2" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="735" top="189">
+        <interface id="0" name="e0/0" type="ethernet" network_id="3"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="39"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="8"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="11"/>
+      </node>
+      <node id="9" name="ASW3" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="975" top="198">
+        <interface id="0" name="e0/0" type="ethernet" network_id="5"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="41"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="9"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="12"/>
+      </node>
+      <node id="12" name="DSW1" type="qemu" template="viosl2" image="viosl2-adventerprisek9-m.ssa.high_iron_20200929" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="14" uuid="a665d10d-924e-4522-9d1f-70246bc433ad" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -rtc base=utc -cpu host" qemu_version="2.4.0" qemu_arch="x86_64" qemu_nic="e1000" delay="0" icon="Switch-2D-L3-Generic-S.svg" config="0" left="405" top="345">
+        <interface id="0" name="Gi0/0" type="ethernet" network_id="7"/>
+        <interface id="1" name="Gi0/1" type="ethernet" network_id="8"/>
+        <interface id="2" name="Gi0/2" type="ethernet" network_id="9"/>
+        <interface id="3" name="Gi0/3" type="ethernet" network_id="13"/>
+        <interface id="4" name="Gi1/0" type="ethernet" network_id="16"/>
+        <interface id="5" name="Gi1/1" type="ethernet" network_id="17"/>
+        <interface id="6" name="Gi1/2" type="ethernet" network_id="67"/>
+        <interface id="7" name="Gi1/3" type="ethernet" network_id="68"/>
+        <interface id="8" name="Gi2/0" type="ethernet" network_id="69"/>
+        <interface id="9" name="Gi2/1" type="ethernet" network_id="70"/>
+        <interface id="10" name="Gi2/2" type="ethernet" network_id="43"/>
+      </node>
+      <node id="13" name="Switch13" type="qemu" template="viosl2" image="viosl2-adventerprisek9-m.ssa.high_iron_20200929" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="8" uuid="f49e94dc-a256-40bc-9ce2-3d2491257db5" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -rtc base=utc -cpu host" qemu_version="2.4.0" qemu_arch="x86_64" delay="0" icon="Switch-2D-L3-Generic-S.svg" config="0" left="588" top="813">
+        <interface id="0" name="Gi0/0" type="ethernet" network_id="20"/>
+        <interface id="1" name="Gi0/1" type="ethernet" network_id="26"/>
+        <interface id="2" name="Gi0/2" type="ethernet" network_id="30"/>
+      </node>
+      <node id="14" name="DSW2" type="qemu" template="viosl2" image="viosl2-adventerprisek9-m.ssa.high_iron_20200929" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="14" uuid="1ee2a03f-7760-4009-b137-f5e5c8e0be6d" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -rtc base=utc -cpu host" qemu_version="2.4.0" qemu_arch="x86_64" delay="0" icon="Switch-2D-L3-Generic-S.svg" config="0" left="975" top="354">
+        <interface id="0" name="Gi0/0" type="ethernet" network_id="10"/>
+        <interface id="1" name="Gi0/1" type="ethernet" network_id="11"/>
+        <interface id="2" name="Gi0/2" type="ethernet" network_id="12"/>
+        <interface id="3" name="Gi0/3" type="ethernet" network_id="14"/>
+        <interface id="4" name="Gi1/0" type="ethernet" network_id="22"/>
+        <interface id="5" name="Gi1/1" type="ethernet" network_id="23"/>
+        <interface id="6" name="Gi1/2" type="ethernet" network_id="67"/>
+        <interface id="7" name="Gi1/3" type="ethernet" network_id="68"/>
+        <interface id="8" name="Gi2/0" type="ethernet" network_id="69"/>
+        <interface id="9" name="Gi2/1" type="ethernet" network_id="70"/>
+        <interface id="10" name="Gi2/2" type="ethernet" network_id="44"/>
+      </node>
+      <node id="15" name="Switch15" type="qemu" template="viosl2" image="viosl2-adventerprisek9-m.ssa.high_iron_20200929" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="8" uuid="feb174c6-7f1b-49f8-b867-0c3aa18d6912" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -rtc base=utc -cpu host" qemu_version="2.4.0" qemu_arch="x86_64" delay="0" icon="Switch-2D-L3-Generic-S.svg" config="0" left="822" top="810">
+        <interface id="0" name="Gi0/0" type="ethernet" network_id="19"/>
+        <interface id="1" name="Gi0/1" type="ethernet" network_id="25"/>
+        <interface id="2" name="Gi0/2" type="ethernet" network_id="31"/>
+      </node>
+      <node id="18" name="ISP1-casa" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="573" top="948">
+        <slot id="1" module="PA-FE-TX"/>
+        <slot id="2" module="PA-FE-TX"/>
+        <slot id="3" module="PA-FE-TX"/>
+        <slot id="4" module="PA-FE-TX"/>
+        <slot id="5" module="PA-FE-TX"/>
+        <slot id="6" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="30"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="27"/>
+        <interface id="32" name="fa2/0" type="ethernet" network_id="28"/>
+        <interface id="48" name="fa3/0" type="ethernet" network_id="57"/>
+      </node>
+      <node id="19" name="ISP2-casa" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="837" top="942">
+        <slot id="1" module="PA-FE-TX"/>
+        <slot id="2" module="PA-FE-TX"/>
+        <slot id="3" module="PA-FE-TX"/>
+        <slot id="4" module="PA-FE-TX"/>
+        <slot id="5" module="PA-FE-TX"/>
+        <slot id="6" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="31"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="35"/>
+        <interface id="32" name="fa2/0" type="ethernet" network_id="40"/>
+        <interface id="48" name="fa3/0" type="ethernet" network_id="58"/>
+      </node>
+      <node id="20" name="ISP1-rabat" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="441" top="1143">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="51"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="27"/>
+      </node>
+      <node id="21" name="ISP2-rabat" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="600" top="1140">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="47"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="35"/>
+      </node>
+      <node id="25" name="ISP1-tangier" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="816" top="1149">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="52"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="28"/>
+      </node>
+      <node id="26" name="ISP2-tangier" type="dynamips" template="c7200" image="c7200-adventerprisek9-mz.152-4.S6.image" idlepc="0x62f21000" nvram="128" ram="256" console="" delay="0" icon="Router-2D-Gen-White-S.svg" config="0" left="918" top="1140">
+        <slot id="1" module="PA-FE-TX"/>
+        <interface id="0" name="fa0/0" type="ethernet" network_id="53"/>
+        <interface id="16" name="fa1/0" type="ethernet" network_id="40"/>
+      </node>
+      <node id="43" name="switch-rabat" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="522" top="1377">
+        <interface id="0" name="e0/0" type="ethernet" network_id="32"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="36"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="34"/>
+      </node>
+      <node id="44" name="switch-tangier" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="867" top="1386">
+        <interface id="0" name="e0/0" type="ethernet" network_id="6"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="38"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="45"/>
+      </node>
+      <node id="47" name="mgmt-host" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="75d7e3d0-b5a0-4cbf-bec7-864f32266a13" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="30" top="420">
+        <interface id="0" name="e0" type="ethernet" network_id="2"/>
+      </node>
+      <node id="10" name="Mgmt-Switch" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="3" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="153" top="456">
+        <interface id="0" name="e0/0" type="ethernet" network_id="13"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="14"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="15"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="21"/>
+        <interface id="1" name="e1/0" type="ethernet" network_id="49"/>
+        <interface id="17" name="e1/1" type="ethernet" network_id="2"/>
+        <interface id="33" name="e1/2" type="ethernet" network_id="4"/>
+        <interface id="49" name="e1/3" type="ethernet" network_id="29"/>
+      </node>
+      <node id="11" name="DMZ-Switch" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="2" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="1116" top="486">
+        <interface id="0" name="e0/0" type="ethernet" network_id="15"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="18"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="24"/>
+        <interface id="1" name="e1/0" type="ethernet" network_id="33"/>
+      </node>
+      <node id="58" name="FortiGate-HQ-Active" type="qemu" template="fortinet" image="fortinet-FGT-v7.0.15" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="9" uuid="55c93395-9717-4fb3-94e7-bfc7979cb992" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Firewall-2D-FGT-S.svg" config="0" left="489" top="567">
+        <interface id="0" name="port1" type="ethernet" network_id="16"/>
+        <interface id="1" name="port2" type="ethernet" network_id="23"/>
+        <interface id="2" name="port3" type="ethernet" network_id="18"/>
+        <interface id="3" name="port4" type="ethernet" network_id="19"/>
+        <interface id="4" name="port5" type="ethernet" network_id="20"/>
+        <interface id="5" name="port6" type="ethernet" network_id="21"/>
+        <interface id="6" name="port7" type="ethernet" network_id="84"/>
+        <interface id="7" name="port8" type="ethernet" network_id="85"/>
+      </node>
+      <node id="59" name="FortiGate-HQ-Passive" type="qemu" template="fortinet" image="fortinet-FGT-v7.0.15" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="9" uuid="5f3a71ab-e3e9-4c06-83ef-67c18fea945f" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Firewall-2D-FGT-S.svg" config="0" left="807" top="564">
+        <interface id="0" name="port1" type="ethernet" network_id="17"/>
+        <interface id="1" name="port2" type="ethernet" network_id="22"/>
+        <interface id="2" name="port3" type="ethernet" network_id="24"/>
+        <interface id="3" name="port4" type="ethernet" network_id="25"/>
+        <interface id="4" name="port5" type="ethernet" network_id="26"/>
+        <interface id="5" name="port6" type="ethernet" network_id="49"/>
+        <interface id="6" name="port7" type="ethernet" network_id="84"/>
+        <interface id="7" name="port8" type="ethernet" network_id="85"/>
+      </node>
+      <node id="16" name="Mgmt-Rabat" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="9f9028f9-2219-478d-8700-e730bf37103c" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="141" top="1512">
+        <interface id="0" name="e0" type="ethernet" network_id="48"/>
+      </node>
+      <node id="53" name="Mgmt-Tangier" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="55a3ccb3-983f-4141-8749-5c15117e456e" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="1098" top="1545">
+        <interface id="0" name="e0" type="ethernet" network_id="54"/>
+      </node>
+      <node id="54" name="Fortigate-Rabat" type="qemu" template="fortinet" image="fortinet-FGT-v7.0.15" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="6" uuid="9174a040-ebdc-485d-8508-c4fae115844f" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Firewall-2D-FGT-S.svg" config="0" left="522" top="1272">
+        <interface id="0" name="port1" type="ethernet" network_id="34"/>
+        <interface id="3" name="port4" type="ethernet" network_id="47"/>
+        <interface id="4" name="port5" type="ethernet" network_id="51"/>
+        <interface id="5" name="port6" type="ethernet" network_id="48"/>
+      </node>
+      <node id="57" name="Fortigate-Tangier" type="qemu" template="fortinet" image="fortinet-FGT-v7.0.15" console="telnet" cpu="1" cpulimit="0" ram="1024" ethernet="6" uuid="ecdd9e9d-b67c-4df4-a611-d03d82f71803" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Firewall-2D-FGT-S.svg" config="0" left="861" top="1278">
+        <interface id="0" name="port1" type="ethernet" network_id="45"/>
+        <interface id="3" name="port4" type="ethernet" network_id="53"/>
+        <interface id="4" name="port5" type="ethernet" network_id="52"/>
+        <interface id="5" name="port6" type="ethernet" network_id="54"/>
+      </node>
+      <node id="28" name="rabat2" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="e6e2f7c4-93a0-4c4d-aeb2-825b21382d90" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="585" top="1470">
+        <interface id="0" name="e0" type="ethernet" network_id="36"/>
+      </node>
+      <node id="29" name="tangier2" type="qemu" template="win" image="win-10ENT" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="4b191e79-1097-40c0-a51e-b81248a62a1e" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="PC-2D-Desktop-Windows-S.svg" config="0" left="948" top="1470">
+        <interface id="0" name="e0" type="ethernet" network_id="38"/>
+      </node>
+      <node id="36" name="DC" type="qemu" template="winserver" image="winserver-2019" console="vnc" cpu="1" cpulimit="0" ram="8192" ethernet="1" uuid="762f05ad-e620-4e8e-a415-a936306ce96b" qemu_options="-machine type=pc,accel=kvm -cpu host,+fsgsbase -vga std -usbdevice tablet -boot order=dc -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="Server-2D-Windows-S.svg" config="0" left="1212" top="90">
+        <interface id="0" name="e0" type="ethernet" network_id="42"/>
+      </node>
+      <node id="4" name="HR2" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="489" top="18">
+        <interface id="0" name="eth0" type="ethernet" network_id="37"/>
+      </node>
+      <node id="5" name="Sales2" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="759" top="60">
+        <interface id="0" name="eth0" type="ethernet" network_id="39"/>
+      </node>
+      <node id="6" name="IT2" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="1038" top="69">
+        <interface id="0" name="eth0" type="ethernet" network_id="41"/>
+      </node>
+      <node id="39" name="tangier1" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="810" top="1473">
+        <interface id="0" name="eth0" type="ethernet" network_id="6"/>
+      </node>
+      <node id="33" name="WebServer" type="qemu" template="linux" image="linux-tinycore-6.4" console="vnc" cpu="2" cpulimit="0" ram="4096" ethernet="1" uuid="9efbb881-24b6-4a92-841f-df478c13821c" firstmac="00:50:00:00:21:00" qemu_options="-machine type=pc,accel=kvm -vga std -usbdevice tablet -boot order=cd -cpu host" qemu_version="2.12.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Server-2D-Linux-S.svg" config="0" left="1326" top="375">
+        <interface id="0" name="e0" type="ethernet" network_id="33"/>
+      </node>
+      <node id="17" name="HQ-FortiManager" type="qemu" template="fortinet" image="fortinet-FMG-v7.2.0" console="telnet" cpu="4" cpulimit="0" ram="8192" ethernet="4" uuid="46412916-5bb8-4ba3-8692-b3ceb8e16eb8" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Forti_FGT.png" config="0" left="39" top="570">
+        <interface id="0" name="port1" type="ethernet" network_id="4"/>
+      </node>
+      <node id="22" name="HQ-FortiAnalyzer" type="qemu" template="fortinet" image="fortinet-FAZ-v7.2.0" console="telnet" cpu="4" cpulimit="0" ram="8192" ethernet="4" uuid="d500468a-e0d7-4632-9485-cb67043227ff" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -nodefaults -display none -vga std -rtc base=utc" qemu_version="4.1.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Forti_Server.png" config="0" left="207" top="297">
+        <interface id="0" name="port1" type="ethernet" network_id="29"/>
+      </node>
+      <node id="23" name="ASW4" type="iol" template="iol" image="L2-ADVENTERPRISE-M-15.1-20140814.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch-3D-L2-S.svg" config="0" left="1173" top="216">
+        <interface id="0" name="e0/0" type="ethernet" network_id="42"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="43"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="44"/>
+      </node>
+      <node id="24" name="rabat1" type="qemu" template="linux" image="linux-kali-2022.4" console="vnc" cpu="2" cpulimit="0" ram="4096" ethernet="1" uuid="799cdb64-e904-4163-bcff-80f969cb08f4" firstmac="00:50:00:00:18:00" qemu_options="-machine type=pc,accel=kvm -vga std -usbdevice tablet -boot order=cd -cpu host" qemu_version="2.12.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Kali.png" config="0" left="432" top="1455">
+        <interface id="0" name="e0" type="ethernet" network_id="32"/>
+      </node>
+      <node id="30" name="Internal-Attacker" type="qemu" template="linux" image="linux-kali-2022.4" console="vnc" cpu="2" cpulimit="0" ram="4096" ethernet="1" uuid="1a189ee7-b746-4104-a94a-c64f8d6b388a" firstmac="00:50:00:00:1e:00" qemu_options="-machine type=pc,accel=kvm -vga std -usbdevice tablet -boot order=cd -cpu host" qemu_version="2.12.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Kali.png" config="0" left="219" top="90">
+        <interface id="0" name="e0" type="ethernet" network_id="46"/>
+      </node>
+    </nodes>
+    <networks>
+      <network id="1" type="bridge" name="Net-Switch7iface_0" left="507" top="217" visibility="0" icon="lan.png"/>
+      <network id="3" type="bridge" name="Net-Switch8iface_0" left="789" top="208" visibility="0" icon="lan.png"/>
+      <network id="5" type="bridge" name="Net-Switch9iface_0" left="1068" top="205" visibility="0" icon="lan.png"/>
+      <network id="7" type="bridge" name="Net-Switchiface_0" left="684" top="445" visibility="0" icon="lan.png"/>
+      <network id="8" type="bridge" name="Net-Switchiface_1" left="684" top="445" visibility="0" icon="lan.png"/>
+      <network id="9" type="bridge" name="Net-Switchiface_2" left="684" top="445" visibility="0" icon="lan.png"/>
+      <network id="10" type="bridge" name="Net-Switch14iface_0" left="957" top="433" visibility="0" icon="lan.png"/>
+      <network id="11" type="bridge" name="Net-Switch14iface_1" left="957" top="433" visibility="0" icon="lan.png"/>
+      <network id="12" type="bridge" name="Net-Switch14iface_2" left="957" top="433" visibility="0" icon="lan.png"/>
+      <network id="30" type="bridge" name="Net-Switch13iface_2" left="648" top="324" visibility="0" icon="lan.png"/>
+      <network id="31" type="bridge" name="Net-Switch15iface_2" left="882" top="226" visibility="0" icon="lan.png"/>
+      <network id="67" type="bridge" name="Net-DSW1iface_6" left="681" top="457" visibility="0" icon="lan.png"/>
+      <network id="68" type="bridge" name="Net-DSW1iface_7" left="681" top="457" visibility="0" icon="lan.png"/>
+      <network id="69" type="bridge" name="Net-DSW1iface_8" left="663" top="442" visibility="0" icon="lan.png"/>
+      <network id="70" type="bridge" name="Net-DSW1iface_9" left="663" top="442" visibility="0" icon="lan.png"/>
+      <network id="13" type="bridge" name="Net-Mgmt-Switchiface_0" left="118" top="577" visibility="0" icon="lan.png"/>
+      <network id="14" type="bridge" name="Net-Mgmt-Switchiface_16" left="246" top="577" visibility="0" icon="lan.png"/>
+      <network id="15" type="bridge" name="Net-Mgmt-Switchiface_32" left="246" top="577" visibility="0" icon="lan.png"/>
+      <network id="84" type="bridge" name="Net-Primary-FWiface_6" left="291" top="365" visibility="0" icon="lan.png"/>
+      <network id="85" type="bridge" name="Net-Primary-FWiface_7" left="291" top="565" visibility="0" icon="lan.png"/>
+      <network id="21" type="bridge" name="Net-Mgmt-Switchiface_48" left="228" top="250" visibility="0" icon="lan.png"/>
+      <network id="16" type="bridge" name="Net-Primary-FW-testiface_0" left="261" top="397" visibility="0" icon="lan.png"/>
+      <network id="23" type="bridge" name="Net-Primary-FW-testiface_1" left="243" top="488" visibility="0" icon="lan.png"/>
+      <network id="18" type="bridge" name="Net-Primary-FW-testiface_2" left="243" top="488" visibility="0" icon="lan.png"/>
+      <network id="19" type="bridge" name="Net-Primary-FW-testiface_3" left="243" top="488" visibility="0" icon="lan.png"/>
+      <network id="20" type="bridge" name="Net-Primary-FW-testiface_4" left="243" top="488" visibility="0" icon="lan.png"/>
+      <network id="17" type="bridge" name="Net-Secondary-FW-testiface_0" left="453" top="600" visibility="0" icon="lan.png"/>
+      <network id="22" type="bridge" name="Net-Secondary-FW-testiface_1" left="453" top="600" visibility="0" icon="lan.png"/>
+      <network id="24" type="bridge" name="Net-Secondary-FW-testiface_2" left="453" top="500" visibility="0" icon="lan.png"/>
+      <network id="25" type="bridge" name="Net-Secondary-FW-testiface_3" left="453" top="500" visibility="0" icon="lan.png"/>
+      <network id="26" type="bridge" name="Net-Secondary-FW-testiface_4" left="453" top="400" visibility="0" icon="lan.png"/>
+      <network id="47" type="bridge" name="Net-Fortigate-Rabatiface_3" left="162" top="327" visibility="0" icon="lan.png"/>
+      <network id="48" type="bridge" name="Net-Fortigate-Rabatiface_5" left="162" top="265" visibility="0" icon="lan.png"/>
+      <network id="45" type="bridge" name="Net-Fortigate-Tangieriface_0" left="576" top="341" visibility="0" icon="lan.png"/>
+      <network id="53" type="bridge" name="Net-Fortigate-Tangieriface_3" left="576" top="195" visibility="0" icon="lan.png"/>
+      <network id="54" type="bridge" name="Net-Fortigate-Tangieriface_5" left="576" top="328" visibility="0" icon="lan.png"/>
+      <network id="51" type="bridge" name="Net-Fortigate-Rabatiface_4" left="162" top="252" visibility="0" icon="lan.png"/>
+      <network id="52" type="bridge" name="Net-Fortigate-Tangieriface_4" left="576" top="367" visibility="0" icon="lan.png"/>
+      <network id="36" type="bridge" name="Net-switch-rabatiface_16" left="171" top="240" visibility="0" icon="lan.png"/>
+      <network id="38" type="bridge" name="Net-tangier229iface_0" left="609" top="371" visibility="0" icon="lan.png"/>
+      <network id="6" type="bridge" name="Net-VPC39iface_0" left="525" top="282" visibility="0" icon="lan.png"/>
+      <network id="37" type="bridge" name="Net-VPC4iface_0" left="582" top="97" visibility="0" icon="lan.png"/>
+      <network id="39" type="bridge" name="Net-VPC5iface_0" left="819" top="100" visibility="0" icon="lan.png"/>
+      <network id="41" type="bridge" name="Net-VPC6iface_0" left="1134" top="127" visibility="0" icon="lan.png"/>
+      <network id="33" type="bridge" name="Net-WebServeriface_0" left="1368" top="433" visibility="0" icon="lan.png"/>
+      <network id="4" type="bridge" name="Net-FortiManageriface_0" left="117" top="338" visibility="0" icon="lan.png"/>
+      <network id="2" type="bridge" name="Net-mgmt-hostiface_0" left="96" top="372" visibility="0" icon="lan.png"/>
+      <network id="29" type="bridge" name="Net-Mgmt-Switchiface_49" left="213" top="499" visibility="0" icon="lan.png"/>
+      <network id="34" type="bridge" name="Net-switch-rabatiface_32" left="612" top="333" visibility="0" icon="lan.png"/>
+      <network id="57" type="pnet1" name="Internet" left="357" top="942" visibility="1" icon="Globe-2D-Blue.svg"/>
+      <network id="58" type="pnet1" name="Internet" left="1020" top="942" visibility="1" icon="Globe-2D-Green.svg"/>
+      <network id="27" type="bridge" name="Net-ISP1-casaiface_16" left="636" top="488" visibility="0" icon="lan.png"/>
+      <network id="28" type="bridge" name="Net-ISP1-casaiface_32" left="636" top="278" visibility="0" icon="lan.png"/>
+      <network id="35" type="bridge" name="Net-ISP2-rabatiface_16" left="660" top="500" visibility="0" icon="lan.png"/>
+      <network id="40" type="bridge" name="Net-ISP2-casaiface_32" left="897" top="462" visibility="0" icon="lan.png"/>
+      <network id="42" type="bridge" name="Net-ASW4iface_0" left="1233" top="256" visibility="0" icon="lan.png"/>
+      <network id="43" type="bridge" name="Net-ASW4iface_32" left="1233" top="256" visibility="0" icon="lan.png"/>
+      <network id="44" type="bridge" name="Net-ASW4iface_48" left="1233" top="256" visibility="0" icon="lan.png"/>
+      <network id="32" type="bridge" name="Net-rabat1iface_0" left="492" top="259" visibility="0" icon="lan.png"/>
+      <network id="46" type="bridge" name="Net-Linuxiface_0" left="366" top="209" visibility="0" icon="lan.png"/>
+      <network id="49" type="bridge" name="Net-FortiGate-HQ-Passiveiface_5" left="867" top="214" visibility="0" icon="lan.png"/>
+    </networks>
+  </topology>
+</lab>
