@@ -50,8 +50,6 @@ Traffic would be implicitly dropped by the implicit deny policy at the end even 
 
 ## Verification and tests
 
-Each test lists where to run it, the command and the expected result, followed by a screenshot placeholder. Replace the placeholder images in `img/` with your own screenshots (same filename) and adjust any test to what you actually ran.
-
 ### Test 1 - HR cannot reach Sales
 
 - **Device:** HR1
