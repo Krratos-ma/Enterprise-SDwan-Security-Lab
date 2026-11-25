@@ -27,7 +27,6 @@ Every phase folder has its own README with the configuration (and screenshots), 
 | 06 | [Active Directory](./06-active-directory/) | Domain, DNS, domain join, LDAP integration and user groups on the FortiGate |
 | 07 | [DMZ and WebServer](./07-dmz-webserver/) | Virtual IP, WAF, DoS policy, quarantine, internal access by name |
 | 08 | [Zero Trust](./08-zero-trust/) | Default-deny micro-segmentation, identity-aware policies, Kerberos attack surface |
-| 09 | [Operations](./09-operations-hardening/) | Trusted hosts, device detection, timeouts, backup and restore |
 
 * [**Topology**](./topology/) - Network diagram
 * [**Documentation**](./documentation/) - IP addressing plan
@@ -46,7 +45,7 @@ Every phase folder has its own README with the configuration (and screenshots), 
 The VPN phase documents three real issues and their fixes: [Troubleshooting VPN issues](./05-ipsec-vpn-sdwan/README.md#troubleshooting-vpn-issues).
 
 ## 🔐 About Credentials
-All passwords and pre-shared keys in this repository are replaced by placeholders such as `<IPSEC_PSK>`, `<AD_ADMIN_PASSWORD>`, `<HA_PASSWORD>`, `<SWITCH_ADMIN_PASSWORD>` and `<WEBSERVER_ROOT_PASSWORD>`. Use your own strong values. The only intentionally weak credentials are the red-team test accounts in [08-zero-trust](./08-zero-trust/README.md). The 196.200.x.x and 213.150.x.x ranges are lab addressing for the simulated ISP links.
+All passwords and pre-shared keys in this repository are replaced by placeholders such as `<IPSEC_PSK>`, `<AD_ADMIN_PASSWORD>`, `<HA_PASSWORD>`, `<SWITCH_ADMIN_PASSWORD>` and `<WEBSERVER_ROOT_PASSWORD>`. Use your own strong values.
 
 ## 📺 Demonstration
 <!-- TODO(add): demo link (LinkedIn) -->
